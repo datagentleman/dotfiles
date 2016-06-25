@@ -18,6 +18,8 @@ Plugin 'fatih/vim-go'
 Plugin 'majutsushi/tagbar'
 Plugin 'taglist.vim'
 Plugin 'jlanzarotta/bufexplorer'
+Plugin '/terryma/vim-multiple-cursors'
+
 
 autocmd BufWritePre * StripWhitespace
 set guifont=Monaco:h11
@@ -28,6 +30,7 @@ set noswapfile
 
 set ts=2
 
+" GUI options
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
@@ -48,16 +51,18 @@ noremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 " move lines up/down
 nnoremap <M-Down> :m+<CR>==
 nnoremap <M-Up> :m-2<CR>==
-
 vnoremap <M-Down> :m'>+<CR>gv=gv
 vnoremap <M-Up> :m-2<CR>gv=gv
 
-nnoremap <C-s> :w<CR>
-
-
-" boofer list
+" display buffer list
 map <Tab> \be
+
+" File search
 map <C-f> :CtrlP file<CR>
+
+" display files and directories
+map <Leader>a :NERDTree<CR>
+map <Leader>q :NERDTreeClose<CR>
 
 set smartindent
 set autoindent
@@ -67,9 +72,11 @@ set softtabstop=2
 set shiftwidth=2
 set expandtab
 
+" color scheme
 set background=light
 colorscheme solarized
 
+" change default mapleader
 let mapleader = "\\"
 
 fun! s:write_with_tags(path)
@@ -79,11 +86,10 @@ endfun
 
 command! -nargs=1 Wt :call s:write_with_tags(<args>)
 
-map <Leader>a :NERDTree<CR>
-map <Leader>q :NERDTreeClose<CR>
 
 set rtp+=$GOROOT/misc/vim
 
+" Go to Next/Previous page
 nnoremap <C-n> :tabn<CR>
 nnoremap <C-p> :tabp<CR>
 
