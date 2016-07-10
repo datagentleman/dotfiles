@@ -6,22 +6,19 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ervandew/supertab'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-scripts/tComment'
-Plugin 'tpope/vim-surround'
-Plugin 'Raimondi/delimitMate'
 Plugin 'fatih/vim-go'
 Plugin 'majutsushi/tagbar'
 Plugin 'taglist.vim'
 Plugin 'jlanzarotta/bufexplorer'
+Plugin 'tpope/vim-surround'
+Plugin 'Raimondi/delimitMate'
 Plugin '/terryma/vim-multiple-cursors'
 
-
-autocmd BufWritePre * StripWhitespace
 set guifont=Monaco:h11
 
 set nobackup
@@ -79,6 +76,8 @@ colorscheme solarized
 " change default mapleader
 let mapleader = "\\"
 
+let loaded_matchparen = 1
+
 fun! s:write_with_tags(path)
     silent! exe ":w"
     silent! exe "!ctags -R ". a:path
@@ -106,6 +105,7 @@ nnoremap <C-d> ciw
 nnoremap <C-c> caw
 
 call vundle#end()
+
 filetype plugin indent on
 
 au BufRead,BufNewFile *.go set filetype=go
@@ -113,3 +113,6 @@ au BufRead,BufNewFile *.go set filetype=go
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
+
+" strip all whitespaces
+autocmd BufWritePre * %s/\s\+$//e
